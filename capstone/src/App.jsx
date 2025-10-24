@@ -8,7 +8,7 @@ import "./styles/global.css";
 
 function App() {
   return (
-    <Router>
+    <Route>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,7 +16,7 @@ function App() {
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/carts" element={<Carts />} />
       </Routes>
-    </Router>
+    </Route>
   );
 }
 

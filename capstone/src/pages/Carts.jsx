@@ -1,43 +1,32 @@
-import { useEffect, useState } from "react";
-import { getCart, deleteCart } from "../api/cartAPI";
-import "../styles/carts.css";
+import React from 'react';
+import { useStore } from '../context/StoreContext';
 
-export default function Carts() {
-  const [cartId, setCartId] = useState("");
-  const [cart, setCart] = useState(null);
+export default function CartPage() {
+  const { state, removeFromCart, setCartQty } = useStore();
+  const cart = state.cart || [];
 
-  async function fetchCart() {
-    if (!cartId) return;
-    const res = await getCart(cartId);
-    setCart(res.data);
-  }
-
-  async function handleDelete() {
-    await deleteCart(cartId);
-    setCart(null);
-    setCartId("");
-  }
+  const total = cart.reduce((s, c) => s + ((c.price || 0) * (c.qty || 0)), 0);
 
   return (
-    <div className="page">
-      <h2>Carts</h2>
-      <input
-        type="text"
-        placeholder="Enter Cart ID"
-        value={cartId}
-        onChange={(e) => setCartId(e.target.value)}
-      />
-      <button onClick={fetchCart}>Fetch Cart</button>
-
-      {cart && (
-        <div>
-          <h3>{cart.name}</h3>
-          <ul>
-            {cart.items.map((it) => (
-              <li key={it._id}>{it.item.name} — {it.qty}</li>
-            ))}
-          </ul>
-          <button onClick={handleDelete}>Delete Cart</button>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      {cart.length === 0 ? <div>Your cart is empty.</div> : (
+        <div className="space-y-3">
+          {cart.map(it => (
+            <div key={it._id} className="flex items-center justify-between border p-3 rounded">
+              <div>
+                <div className="font-semibold">{it.name}</div>
+                <div className="text-sm text-gray-500">${(it.price || 0).toFixed(2)}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button onClick={() => setCartQty(it._id, Math.max(1, (it.qty || 1) - 1))} className="px-2 py-1 border rounded">-</button>
+                <div className="px-3">{it.qty}</div>
+                <button onClick={() => setCartQty(it._id, (it.qty || 1) + 1)} className="px-2 py-1 border rounded">+</button>
+                <button onClick={() => removeFromCart(it._id)} className="ml-4 px-3 py-1 bg-red-500 text-white rounded">Remove</button>
+              </div>
+            </div>
+          ))}
+          <div className="text-right font-bold">Total: ${total.toFixed(2)}</div>
         </div>
       )}
     </div>

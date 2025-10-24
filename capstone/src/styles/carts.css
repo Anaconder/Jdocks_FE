@@ -1,0 +1,105 @@
+/* General page layout */
+.page {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafc;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+}
+
+/* Header */
+.page h2 {
+  font-size: 2rem;
+  color: #1e293b;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+/* Input and button container */
+.page input[type="text"] {
+  width: 300px;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s ease;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.page input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 4px rgba(37, 99, 235, 0.4);
+}
+
+/* Buttons */
+.page button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  margin: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.page button:hover {
+  background-color: #1e40af;
+}
+
+/* Cart display */
+.page div > h3 {
+  margin-top: 25px;
+  font-size: 1.5rem;
+  color: #1f2937;
+}
+
+.page ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+  width: 320px;
+}
+
+.page li {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.page li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Delete button style */
+.page button:last-of-type {
+  background-color: #dc2626;
+}
+
+.page button:last-of-type:hover {
+  background-color: #b91c1c;
+}
+
+/* Responsive design */
+@media (max-width: 500px) {
+  .page input[type="text"] {
+    width: 90%;
+  }
+
+  .page ul {
+    width: 90%;
+  }
+}

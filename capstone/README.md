@@ -1,16 +1,18 @@
-# React + Vite
+# Capstone Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is the React frontend for the Capstone project. It implements a simple shop with Home, Inventory (admin), Cart and Dashboard pages. Auth is simulated with fallback login but will attempt server auth if `/auth/login` exists.
 
-Currently, two official plugins are available:
+## Features
+- 4 main pages (Home, Inventory, Cart, Dashboard), plus Login
+- Global state using `useReducer` + Context
+- Connects to backend via `VITE_API_BASE_URL`
+- Inventory editing (admin) calls `PUT /inventory/:id`
+- Inventory listing uses `GET /inventory`
+- Cart is local by default; can be extended to call `/cart` endpoints
+- Styling via Tailwind CSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone or create project, copy the frontend files here.
+2. Create `.env` at project root:
