@@ -1,8 +1,9 @@
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true, // optional — include cookies if your backend uses them
-});
+const API = `${API_BASE_URL}/inventory`;
 
-export default api;
+export const getInventory = () => axios.get(API);
+export const createInventory = (data) => axios.post(API, data);
+export const updateInventory = (id, data) => axios.put(`${API}/${id}`, data);
+export const deleteInventory = (id) => axios.delete(`${API}/${id}`);
