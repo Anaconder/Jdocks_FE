@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000'; // Replace with your backend link
+const BASE_URL = 'http://localhost:3000'; 
 
 export async function fetchItems() {
   const res = await fetch(`${BASE_URL}/api/items`);
