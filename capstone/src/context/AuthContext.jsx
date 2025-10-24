@@ -1,14 +1,20 @@
 import React, { createContext, useContext, useState } from 'react';
 
-// Create context
+
+const DUMMY_USERS = [
+  { id: 1, username: 'admin', password: 'admin', isAdmin: true },
+  { id: 2, username: 'user', password: 'user', isAdmin: false },
+];
+
 const AuthContext = createContext();
 
-// Provider component
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // null = not logged in
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-  const login = ({ username, isAdmin }) => {
-    setUser({ username, isAdmin });
+  const login = (username, password) => {
+    const found = DUMMY_USERS.find(u => u.username === username && u.password === password);
+    if (found) setUser(found);
+    return !!found;
   };
 
   const logout = () => setUser(null);
@@ -18,9 +24,6 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-// Hook to use in components
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
