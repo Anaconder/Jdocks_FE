@@ -1,57 +1,36 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      const res = await axios.post("http://localhost:3000/api/login", {
-        email,
-        password,
-      });
-
-      if (res.data.message === "Login successful") {
-        // mark user as logged in
-        localStorage.setItem("isLoggedIn", "true");
-        navigate("/dashboard");
-      } else {
-        setError(res.data.message || "Invalid credentials");
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Login failed. Please try again.");
-    }
+    login({ username, isAdmin });
+    navigate('/');
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
+    <div className="flex justify-center items-center h-[80vh]">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow w-80 space-y-4">
+        <h2 className="text-xl font-bold">Login</h2>
         <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border rounded px-3 py-2"
           required
         />
-
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <button type="submit">Login</button>
+        <label className="flex items-center space-x-2">
+          <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />
+          <span>Login as Admin</span>
+        </label>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full">Login</button>
       </form>
     </div>
   );
