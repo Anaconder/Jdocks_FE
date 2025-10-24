@@ -1,24 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useStore } from '../context/StoreContext';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const { state } = useStore();
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <nav className="bg-gray-800 text-white p-4 flex justify-between">
       <div className="flex space-x-4">
-        <Link to="/" className="hover:underline">Home</Link>
-        {user?.isAdmin && <Link to="/inventory" className="hover:underline">Inventory</Link>}
-        <Link to="/cart" className="hover:underline">Cart ({state.cart.length})</Link>
-        <Link to="/dashboard" className="hover:underline">Dashboard</Link>
+        <Link to="/">Home</Link>
+        {user?.admin && <Link to="/inventory">Inventory</Link>}
+        <Link to="/cart">Cart</Link>
+        <Link to="/dashboard">Dashboard</Link>
       </div>
       <div>
         {user ? (
-          <button onClick={logout} className="bg-red-500 px-3 py-1 rounded">Logout</button>
+          <>
+            <span className="mr-4">{user.username}</span>
+            <button onClick={logout} className="bg-red-500 px-2 py-1 rounded">Logout</button>
+          </>
         ) : (
-          <Link to="/login" className="bg-green-500 px-3 py-1 rounded">Login</Link>
+          <Link to="/login">Login</Link>
         )}
       </div>
     </nav>
