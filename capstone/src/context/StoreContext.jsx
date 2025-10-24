@@ -1,33 +1,34 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { fetchInventory } from "../api/inventoryApi";
+import { getCart } from "../api/cartApi";
 
 const StoreContext = createContext();
 
-export function StoreProvider({ children }) {
-  const [cart, setCart] = useState([]);
+export const StoreProvider = ({ children }) => {
+  const [inventory, setInventory] = useState([]);
+  const [cart, setCart] = useState(null);
+
+  useEffect(() => {
+    fetchInventory().then(setInventory);
+  }, []);
+
+  const loadCart = async (cartId) => {
+    const data = await getCart(cartId);
+    setCart(data);
+  };
 
   const addToCart = (item) => {
-    setCart(prev => {
-      const exist = prev.find(i => i._id === item._id);
-      if (exist) return prev.map(i => i._id === item._id ? { ...i, qty: i.qty + 1 } : i);
-      return [...prev, { ...item, qty: 1 }];
-    });
-  };
-
-  const removeFromCart = (itemId) => {
-    setCart(prev => prev.filter(i => i._id !== itemId));
-  };
-
-  const updateQty = (itemId, qty) => {
-    setCart(prev => prev.map(i => i._id === itemId ? { ...i, qty } : i));
+    if (!cart) return;
+    setCart({ ...cart, items: [...cart.items, item] });
   };
 
   return (
-    <StoreContext.Provider value={{ cart, addToCart, removeFromCart, updateQty }}>
+    <StoreContext.Provider
+      value={{ inventory, cart, setCart, addToCart, loadCart }}
+    >
       {children}
     </StoreContext.Provider>
   );
-}
+};
 
-export function useStore() {
-  return useContext(StoreContext);
-}
+export const useStore = () => useContext(StoreContext);

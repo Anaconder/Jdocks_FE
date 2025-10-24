@@ -1,37 +1,60 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { apiPost } from '../utils/api.js';
 
 export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [err, setErr] = useState(null);
 
-  const handleSubmit = (e) => {
+  // If your backend supports auth: call POST /auth/login
+  // For now we try backend login and fall back to simulated login
+  async function handleSubmit(e) {
     e.preventDefault();
-    login({ username, isAdmin });
-    navigate('/');
-  };
+    setErr(null);
+    try {
+      // Try backend login (optional)
+      const resp = await apiPost('/auth/login', { username, password }).catch(() => null);
+      if (resp && resp.user) {
+        login(resp.user); // expects server returns { user: { username, admin, ... } }
+        navigate('/');
+        return;
+      }
+      // Fallback: simple local login (simulate)
+      // admin username could be 'jane_admin' from your seed, but adapt as needed
+      if ((username === 'jane_admin' && password === 'password123') || (username === 'admin' && password === 'admin')) {
+        login({ username, admin: true });
+        navigate('/');
+        return;
+      }
+      if ((username === 'john_doe' && password === 'password123') || (username === 'user' && password === 'user')) {
+        login({ username, admin: false });
+        navigate('/');
+        return;
+      }
+      setErr('Invalid credentials');
+    } catch (err) {
+      console.error(err);
+      setErr('Login failed');
+    }
+  }
 
   return (
-    <div className="flex justify-center items-center h-[80vh]">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow w-80 space-y-4">
-        <h2 className="text-xl font-bold">Login</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full border rounded px-3 py-2"
-          required
-        />
-        <label className="flex items-center space-x-2">
-          <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />
-          <span>Login as Admin</span>
-        </label>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full">Login</button>
+    <div className="p-6 max-w-md mx-auto">
+      <h2 className="text-2xl mb-4">Login</h2>
+      {err && <div className="text-red-600 mb-2">{err}</div>}
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" className="w-full border px-2 py-1 rounded" />
+        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" className="w-full border px-2 py-1 rounded" />
+        <div>
+          <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">Sign in</button>
+        </div>
       </form>
+      <div className="text-sm text-gray-500 mt-3">Tip: seed usernames from your seed script. Example: jane_admin/password123</div>
     </div>
   );
 }
