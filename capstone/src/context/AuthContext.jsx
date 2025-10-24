@@ -1,29 +1,33 @@
-import React, { createContext, useContext, useState } from 'react';
-
-
-const DUMMY_USERS = [
-  { id: 1, username: 'admin', password: 'admin', isAdmin: true },
-  { id: 2, username: 'user', password: 'user', isAdmin: false },
-];
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  const login = (username, password) => {
-    const found = DUMMY_USERS.find(u => u.username === username && u.password === password);
-    if (found) setUser(found);
-    return !!found;
+  // Simulate login persistence
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) setUser(JSON.parse(storedUser));
+  }, []);
+
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext);
+}
