@@ -1,4 +1,4 @@
-# Capstone Frontend (React + Vite)
+# Jdocks (React + Vite)
 
 ## Overview
 This is the React frontend for the Capstone project. It implements a simple shop with Home, Inventory (admin), Cart and Dashboard pages. Auth is simulated with fallback login but will attempt server auth if `/auth/login` exists.
@@ -10,7 +10,7 @@ This is the React frontend for the Capstone project. It implements a simple shop
 - Inventory editing (admin) calls `PUT /inventory/:id`
 - Inventory listing uses `GET /inventory`
 - Cart is local by default; can be extended to call `/cart` endpoints
-- Styling via Tailwind CSS
+
 
 ## Setup
 
