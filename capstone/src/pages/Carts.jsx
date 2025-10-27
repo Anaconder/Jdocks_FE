@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/cart.css";
 
 export default function carts() {
   const [carts] = useState([

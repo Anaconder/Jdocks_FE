@@ -1,0 +1,13 @@
+.about-container {
+  padding: 2rem;
+  background-color: #fff3e0;
+}
+
+.about-container h1 {
+  color: #ef6c00;
+}
+
+.about-container p {
+  font-size: 1.1rem;
+  color: #555;
+}

@@ -1,0 +1,18 @@
+.inventory-container {
+  padding: 2rem;
+  background-color: #e8f5e9;
+}
+
+.inventory-container h1 {
+  color: #2e7d32;
+}
+
+.inventory-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.inventory-container li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+}

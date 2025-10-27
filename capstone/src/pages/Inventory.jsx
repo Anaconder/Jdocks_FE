@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/Inventory.css";
 
 export default function Inventory() {
   const [inventory, setInventory] = useState([
