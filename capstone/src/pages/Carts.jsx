@@ -1,21 +1,41 @@
 import React, { useState } from "react";
-import "../styles/Cart.css";
+import "../styles/cart.css";
 
-export default function Cart() {
-  const [cartItems] = useState([
-    { id: 1, name: "Transformer" },
-    { id: 2, name: "Circuit Breaker" },
-    { id: 3, name: "Resistor" },
-  ]);
+export default function carts() {
+  const [carts, setcarts] = useState([]); 
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredItems = carts.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const removeFromcarts = (id) => {
+    setcarts(carts.filter(item => item.id !== id));
+  };
 
   return (
-    <div className="cart-container">
-      <h1>JDocks Cart</h1>
-      <ul>
-        {cartItems.map(item => (
-          <li key={item.id}>{item.name}</li>
+    <div className="carts-container">
+      <h1>My carts</h1>
+      <input
+        type="text"
+        placeholder="Search carts..."
+        value={searchTerm}
+        onChange={e => setSearchTerm(e.target.value)}
+        className="search-input"
+      />
+      {filteredItems.length === 0 ? <p>No items in carts</p> :
+      <div className="grid-container">
+        {filteredItems.map(item => (
+          <div key={item.id} className="grid-item">
+            <img src={item.image} alt={item.name} />
+            <h3>{item.name}</h3>
+            <p>Qty: {item.quantity}</p>
+            <p>Price: ${item.price}</p>
+            <button onClick={() => removeFromcarts(item.id)}>Remove</button>
+          </div>
         ))}
-      </ul>
+      </div>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="about-container">
       <h1>About JDocks</h1>
-      <p>JDocks is a leading provider of electrical equipment with excellent customer service.</p>
+      <p>JDocks is your reliable source for industrial and electrical equipment.</p>
     </div>
   );
 }

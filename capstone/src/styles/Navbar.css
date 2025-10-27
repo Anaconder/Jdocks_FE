@@ -6,11 +6,18 @@
 
 .navbar a {
   color: #fff;
-  margin: 0 1rem;
+  margin: 0 2rem; /* spaced links */
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.navbar a:hover {
+  color: #ffd700;
+  transform: scale(1.1);
 }
 
 .navbar a.active {
   border-bottom: 2px solid #fff;
+  padding-bottom: 2px;
 }

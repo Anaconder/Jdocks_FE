@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link className={location.pathname === "/" ? "active" : ""} to="/">Home</Link>
-      <Link className={location.pathname === "/cart" ? "active" : ""} to="/carts">Cart</Link>
+      <Link className={location.pathname === "/cards" ? "active" : ""} to="/carts">Carts</Link>
       <Link className={location.pathname === "/about" ? "active" : ""} to="/about">About Us</Link>
       <Link className={location.pathname === "/inventory" ? "active" : ""} to="/inventory">Inventory</Link>
     </nav>
