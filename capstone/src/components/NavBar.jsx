@@ -1,13 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import "../styles/Navbar.css";
 
 export default function Navbar() {
+  const location = useLocation();
+
   return (
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/carts">Carts</Link>
-      <Link to="/about">About Us</Link>
-      <Link to="/inventory">Inventory</Link>
+    <nav className="navbar">
+      <Link className={location.pathname === "/" ? "active" : ""} to="/">Home</Link>
+      <Link className={location.pathname === "/cart" ? "active" : ""} to="/carts">Cart</Link>
+      <Link className={location.pathname === "/about" ? "active" : ""} to="/about">About Us</Link>
+      <Link className={location.pathname === "/inventory" ? "active" : ""} to="/inventory">Inventory</Link>
     </nav>
   );
 }

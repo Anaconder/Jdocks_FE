@@ -3,8 +3,8 @@ import "../styles/Home.css";
 
 export default function Home() {
   return (
-    <div>
-      <h1>Welcome to Jdocks</h1>
+    <div className="home-container">
+      <h1>Welcome to JDocks</h1>
       <p>Your trusted partner for electronics and equipment.</p>
     </div>
   );

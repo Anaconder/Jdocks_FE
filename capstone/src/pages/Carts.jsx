@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import "../styles/cart.css";
+import "../styles/Cart.css";
 
-export default function carts() {
-  const [carts] = useState([
+export default function Cart() {
+  const [cartItems] = useState([
     { id: 1, name: "Transformer" },
     { id: 2, name: "Circuit Breaker" },
     { id: 3, name: "Resistor" },
   ]);
 
   return (
-    <div>
-      <h1>Jdocks carts</h1>
+    <div className="cart-container">
+      <h1>JDocks Cart</h1>
       <ul>
-        {carts.map(cart => <li key={cart.id}>{cart.name}</li>)}
+        {cartItems.map(item => (
+          <li key={item.id}>{item.name}</li>
+        ))}
       </ul>
     </div>
   );

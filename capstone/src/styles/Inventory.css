@@ -1,10 +1,12 @@
 .inventory-container {
   padding: 2rem;
   background-color: #e8f5e9;
+  text-align: center;
 }
 
 .inventory-container h1 {
   color: #2e7d32;
+  margin-bottom: 1rem;
 }
 
 .inventory-container ul {

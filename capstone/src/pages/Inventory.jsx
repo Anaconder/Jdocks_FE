@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "../styles/Inventory.css";
 
 export default function Inventory() {
-  const [inventory, setInventory] = useState([
+  const [inventory] = useState([
     { id: 1, name: "Motor", quantity: 10 },
     { id: 2, name: "Capacitor", quantity: 25 },
     { id: 3, name: "Cable", quantity: 50 },
   ]);
 
   return (
-    <div>
+    <div className="inventory-container">
       <h1>Inventory</h1>
       <ul>
         {inventory.map(item => (

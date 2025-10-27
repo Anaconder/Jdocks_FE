@@ -1,18 +1,20 @@
-.cards-container {
+.cart-container {
   padding: 2rem;
   background-color: #e0f7fa;
+  text-align: center;
 }
 
-.cards-container h1 {
+.cart-container h1 {
   color: #00796b;
+  margin-bottom: 1rem;
 }
 
-.cards-container ul {
+.cart-container ul {
   list-style: none;
   padding: 0;
 }
 
-.cards-container li {
+.cart-container li {
   padding: 0.5rem 0;
   border-bottom: 1px solid #ccc;
 }
